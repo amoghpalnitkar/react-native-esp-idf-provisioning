@@ -15,7 +15,7 @@ import EspIdfProvisioning from "react-native-esp-idf-provisioning";
 
 // ...
 
-const result = await EspIdfProvisioning.multiply(3, 7);
+const result = await EspIdfProvisioning.createDevice("espdevice", ...params);
 ```
 
 ## Contributing
