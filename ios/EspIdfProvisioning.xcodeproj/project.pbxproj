@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-
-		F4FF95D7245B92E800C19C63 /*  EspIdfProvisioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /*  EspIdfProvisioning.swift */; };
-
-		5E555C0D2413F4C50049A1A2 /* EspIdfProvisioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* EspIdfProvisioning.mm */; };
+		0B2C2E7FEBAE2145226856C1 /* Pods_EspIdfProvisioning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E351CF628849C7AC334674F /* Pods_EspIdfProvisioning.framework */; };
+		F4FF95D7245B92E800C19C63 /* EspIdfProvisioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* EspIdfProvisioning.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,12 +25,12 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libEspIdfProvisioning.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEspIdfProvisioning.a; sourceTree = BUILT_PRODUCTS_DIR; };
-
-
+		5E351CF628849C7AC334674F /* Pods_EspIdfProvisioning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EspIdfProvisioning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		62CBF06536B7081F46272F4B /* Pods-EspIdfProvisioning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspIdfProvisioning.release.xcconfig"; path = "Target Support Files/Pods-EspIdfProvisioning/Pods-EspIdfProvisioning.release.xcconfig"; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* EspIdfProvisioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspIdfProvisioning.m; sourceTree = "<group>"; };
+		EAEEAB11A930E597AB269796 /* Pods-EspIdfProvisioning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspIdfProvisioning.debug.xcconfig"; path = "Target Support Files/Pods-EspIdfProvisioning/Pods-EspIdfProvisioning.debug.xcconfig"; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* EspIdfProvisioning-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EspIdfProvisioning-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FF95D6245B92E800C19C63 /* EspIdfProvisioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EspIdfProvisioning.swift; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2C2E7FEBAE2145226856C1 /* Pods_EspIdfProvisioning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,17 +53,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		20B9826127CAC102820256B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E351CF628849C7AC334674F /* Pods_EspIdfProvisioning.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-
-
 				F4FF95D6245B92E800C19C63 /* EspIdfProvisioning.swift */,
 				B3E7B5891CC2AC0600A0062D /* EspIdfProvisioning.m */,
 				F4FF95D5245B92E700C19C63 /* EspIdfProvisioning-Bridging-Header.h */,
-
 				134814211AA4EA7D00B7C361 /* Products */,
+				84456CCEA4790B0D333E137A /* Pods */,
+				20B9826127CAC102820256B7 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		84456CCEA4790B0D333E137A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEAB11A930E597AB269796 /* Pods-EspIdfProvisioning.debug.xcconfig */,
+				62CBF06536B7081F46272F4B /* Pods-EspIdfProvisioning.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -75,6 +89,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "EspIdfProvisioning" */;
 			buildPhases = (
+				A56306F848E4D0043289689A /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
@@ -120,16 +135,37 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A56306F848E4D0043289689A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EspIdfProvisioning-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
-
 				F4FF95D7245B92E800C19C63 /* EspIdfProvisioning.swift in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* EspIdfProvisioning.m in Sources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -222,7 +258,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -231,6 +267,7 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAEEAB11A930E597AB269796 /* Pods-EspIdfProvisioning.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -242,16 +279,15 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = EspIdfProvisioning;
 				SKIP_INSTALL = YES;
-
 				SWIFT_OBJC_BRIDGING_HEADER = "EspIdfProvisioning-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-
 			};
 			name = Debug;
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62CBF06536B7081F46272F4B /* Pods-EspIdfProvisioning.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -263,10 +299,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = EspIdfProvisioning;
 				SKIP_INSTALL = YES;
-
 				SWIFT_OBJC_BRIDGING_HEADER = "EspIdfProvisioning-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-
 			};
 			name = Release;
 		};
