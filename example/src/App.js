@@ -4,7 +4,9 @@ import EspIdfProvisioning from 'react-native-esp-idf-provisioning';
 
 export default function App() {
   const handleConnect = () => {
-    EspIdfProvisioning.connectDevice(() => {});
+    EspIdfProvisioning.connectDevice((error, value) => {
+      console.warn({error, value});
+    });
   };
 
   const handleCreate = () => {
@@ -22,9 +24,21 @@ export default function App() {
     );
   };
 
-  const handleScan = () => {};
+  const handleScan = () => {
+    EspIdfProvisioning.scanWifiList((error, value) => {
+      console.warn({error, value});
+    });
+  };
 
-  const handleProvision = () => {};
+  const handleProvision = () => {
+    EspIdfProvisioning.provision(
+      'PROV_TEST_LAN_SSID',
+      'PROV_TEST_LAN_PASSWORD',
+      (error, value) => {
+        console.warn({error, value});
+      },
+    );
+  };
 
   return (
     <View style={styles.container}>
