@@ -39,14 +39,18 @@ export default function App() {
 
   const handleScan = () => {
     EspIdfProvisioning.scanWifiList((error, value) => {
-
-    })
+      console.warn({error, value});
+    });
   };
 
   const handleProvision = () => {
-    EspIdfProvisioning.provision(ssid, password, (error, value) => {
-      
-    })
+    EspIdfProvisioning.provision(
+      'PROV_TEST_LAN_SSID',
+      'PROV_TEST_LAN_PASSWORD',
+      (error, value) => {
+        console.warn({error, value});
+      },
+    );
   };
 
   return (
