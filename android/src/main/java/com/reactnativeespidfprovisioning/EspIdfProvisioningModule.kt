@@ -3,15 +3,23 @@ package com.reactnativeespidfprovisioning
 import android.Manifest
 import android.content.pm.PackageManager
 import android.widget.Toast
+import android.util.Log;
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.le.ScanResult
 import androidx.core.app.ActivityCompat
+
 import com.espressif.provisioning.ESPConstants
 import com.espressif.provisioning.ESPDevice
 import com.espressif.provisioning.ESPProvisionManager
 import com.espressif.provisioning.WiFiAccessPoint
 import com.espressif.provisioning.listeners.ProvisionListener
+import com.espressif.provisioning.DeviceConnectionEvent
 import com.espressif.provisioning.listeners.WiFiScanListener
+import com.espressif.provisioning.listeners.BleScanListener
+
 import com.facebook.react.bridge.*
 import java.lang.Exception
+import java.util.ArrayList
 
 
 class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -26,6 +34,36 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
     fun multiply(a: Int, b: Int, promise: Promise) {
 
       promise.resolve(a * b)
+    }
+
+    @ReactMethod
+    fun getBleDevices(prefix: String, callback: Callback) {
+      val deviceList: ArrayList<BluetoothDevice> = arrayListOf<BluetoothDevice>();
+
+      if (ActivityCompat.checkSelfPermission(reactApplicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        ESPProvisionManager.getInstance(reactApplicationContext).searchBleEspDevices(prefix, object: BleScanListener {
+            override fun scanStartFailed() {
+              callback.invoke("Scan start failed")
+            }
+
+            override fun onPeripheralFound(device: BluetoothDevice, scanResult: ScanResult) {
+              if (!deviceList.contains(device) ) {
+                deviceList.add(device)
+              }
+            }
+
+            override fun scanCompleted() {
+              val listData = deviceList.joinToString()
+              callback.invoke(listData);
+            }
+
+            override fun onFailure(p0: Exception?) {
+              callback.invoke("Scan failure")
+            }
+        });
+      } else {
+        Toast.makeText(reactApplicationContext, "Bluetooth permission denied", Toast.LENGTH_SHORT).show()
+      }
     }
 
     @ReactMethod
