@@ -16,10 +16,16 @@ import com.espressif.provisioning.listeners.ProvisionListener
 import com.espressif.provisioning.DeviceConnectionEvent
 import com.espressif.provisioning.listeners.WiFiScanListener
 import com.espressif.provisioning.listeners.BleScanListener
+import com.espressif.provisioning.transport.BLETransport
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import com.facebook.react.bridge.*
 import java.lang.Exception
 import java.util.ArrayList
+import com.google.protobuf.InvalidProtocolBufferException;
 
 
 class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -38,6 +44,7 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
 
     @ReactMethod
     fun getBleDevices(prefix: String, callback: Callback) {
+      Log.e("Jochem", "===== getBleDevices =====");
       val deviceList: ArrayList<BluetoothDevice> = arrayListOf<BluetoothDevice>();
 
       if (ActivityCompat.checkSelfPermission(reactApplicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -47,12 +54,30 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
             }
 
             override fun onPeripheralFound(device: BluetoothDevice, scanResult: ScanResult) {
-              if (!deviceList.contains(device) ) {
-                deviceList.add(device)
+              Log.e("Jochem", "onPeripheralFound");
+              val deviceExists = false;
+              var serviceUuid = "";
+
+              if (scanResult.getScanRecord().getServiceUuids() != null && scanResult.getScanRecord().getServiceUuids().size > 0) {
+                  serviceUuid = scanResult.getScanRecord().getServiceUuids().get(0).toString();
+              }
+
+              // if (bluetoothDevices.containsKey(device)) {
+              //     deviceExists = true;
+              // }
+
+
+              if (!deviceExists) {
+                // bluetoothDevices.put(device, serviceUuid);
+                Log.e("Jochem", "DeviceFound");
+                deviceList.add(device);
+                connectDevice(device, serviceUuid);
               }
             }
 
             override fun scanCompleted() {
+              Log.e("Jochem", "BLEscanCompleted");
+
               val listData = deviceList.joinToString()
               callback.invoke(listData);
             }
@@ -62,7 +87,34 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
             }
         });
       } else {
-        Toast.makeText(reactApplicationContext, "Bluetooth permission denied", Toast.LENGTH_SHORT).show()
+        Toast.makeText(reactApplicationContext, "Location permission denied", Toast.LENGTH_SHORT).show()
+      }
+    }
+
+    @ReactMethod
+    fun connectDevice(device: BluetoothDevice, uuid: String) {
+      val esp : ESPDevice = ESPProvisionManager.getInstance(reactApplicationContext).createESPDevice(ESPConstants.TransportType.TRANSPORT_BLE, ESPConstants.SecurityType.SECURITY_1);
+      esp.proofOfPossession = "abcd1234";
+
+      Log.e("Jochem", "connectDevice");
+
+      if (ActivityCompat.checkSelfPermission(reactApplicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        esp.connectBLEDevice(device, uuid);
+
+        Log.e("Jochem", "scanNetworks");
+        Log.e("Jochem", device.toString());
+        Log.e("Jochem", esp.toString());
+
+      //  val listener: WiFiScanListener = WiFiScanListener()
+        esp.scanNetworks(object: WiFiScanListener {
+          override fun onWifiListReceived(wifiList: java.util.ArrayList<WiFiAccessPoint>?) {
+            Log.e("Jochem", "onWifiListReceived");
+          }
+
+          override fun onWiFiScanFailed(p0: java.lang.Exception?) {
+            Log.e("Jochem", p0.toString());
+          }
+        })
       }
     }
 

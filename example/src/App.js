@@ -14,11 +14,18 @@ export default function App() {
   };
 
   const handleFetchBLEDevices = async () => {
-    console.log('start fetchBleDevices');
+    await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+    await request(PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION);
+
     EspIdfProvisioning.getBleDevices('PROV_', (devices) => {
-      console.log('Devices found:');
       console.log(devices);
+      connectBLEDevice();
     });
+  };
+
+  const connectBLEDevice = async () => {
+    // TODO: Connect device with params
+    // EspIdfProvisioning.connectDevice('PROV_D1C5E0', 'BC:DD:C2:D1:C5:E2');
   };
 
   const handleCreate = async () => {
