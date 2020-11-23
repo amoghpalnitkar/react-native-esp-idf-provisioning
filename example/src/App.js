@@ -5,7 +5,7 @@ import { request, PERMISSIONS } from 'react-native-permissions';
 
 export default function App() {
   const handleConnect = () => {
-    if(Platform.OS === 'android') {
+    if (Platform.OS === 'android') {
       //no need to connect since in Android
       //create & connect happen in the same function
     } else {
@@ -19,10 +19,10 @@ export default function App() {
     let deviceProofOfPossession = 'abcd1234';
 
     try {
-      if(Platform.OS === 'android') {
-        await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+      if (Platform.OS === 'android') {
+        await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
       } else {
-        await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+        await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
       }
       EspIdfProvisioning.createDevice(
         deviceSSID,
@@ -32,14 +32,14 @@ export default function App() {
           console.log({ error, value });
         }
       );
-    } catch(error) {
-      alert('Location permisson denied')
+    } catch (error) {
+      alert('Location permisson denied');
     }
   };
 
   const handleScan = () => {
     EspIdfProvisioning.scanWifiList((error, value) => {
-      console.warn({error, value});
+      console.warn({ error, value });
     });
   };
 
@@ -48,8 +48,8 @@ export default function App() {
       'PROV_TEST_LAN_SSID',
       'PROV_TEST_LAN_PASSWORD',
       (error, value) => {
-        console.warn({error, value});
-      },
+        console.warn({ error, value });
+      }
     );
   };
 
