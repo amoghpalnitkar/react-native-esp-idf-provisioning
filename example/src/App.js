@@ -18,45 +18,52 @@ export default function App() {
   };
 
   const handleGetBleDevices = async () => {
-    console.log("GetBLEDevices: Start");
-    if(Platform.OS === 'android') {
-      await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+    console.log('GetBLEDevices: Start');
+    if (Platform.OS === 'android') {
+      await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
     } else {
-      await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+      await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
     }
 
     try {
       const devices = await EspIdfProvisioning.getBleDevices('PROV_');
-        if (devices.length > 0) {
-          console.log('GetBLEDevices: found devices:', devices);
-          foundBLEDevices = devices;
-        } else {
-          console.log("GetBLEDevices: No devices found");
-        }
+      if (devices.length > 0) {
+        console.log('GetBLEDevices: found devices:', devices);
+        foundBLEDevices = devices;
+      } else {
+        console.log('GetBLEDevices: No devices found');
+      }
     } catch (error) {
-      console.log("GetBLEDevices: " + error);
+      console.log('GetBLEDevices: ' + error);
     }
-  }
+  };
 
   const handleConnectBleDevice = async () => {
-    DeviceEventEmitter.addListener("DeviceConnectionEvent", function(event) {
-      console.log("DeviceConnectionEvent");
+    DeviceEventEmitter.addListener('DeviceConnectionEvent', function (event) {
+      console.log('DeviceConnectionEvent');
       console.log(event);
     });
 
-    console.log("handleConnectBleDevice: start connection");
+    console.log('handleConnectBleDevice: start connection');
     if (foundBLEDevices.length === 0) {
-      console.log("handleConnectBleDevice: Can't connect because there are no devices found");
+      console.log(
+        "handleConnectBleDevice: Can't connect because there are no devices found"
+      );
       return;
     }
 
     try {
-      const connectedDevice = await EspIdfProvisioning.connectBleDevice(foundBLEDevices[0], deviceProofOfPossession); // For testing we use the first matching device.
-      console.log("handleConnectBleDevice: Connection started to: " + connectedDevice);
+      const connectedDevice = await EspIdfProvisioning.connectBleDevice(
+        foundBLEDevices[0],
+        deviceProofOfPossession
+      ); // For testing we use the first matching device.
+      console.log(
+        'handleConnectBleDevice: Connection started to: ' + connectedDevice
+      );
     } catch (error) {
-      console.log("handleConnectBleDevice: Connection failed: " + error);
+      console.log('handleConnectBleDevice: Connection failed: ' + error);
     }
-  }
+  };
 
   const handleCreate = async () => {
     let deviceSSID = 'PROV_TEST_SSID';
@@ -82,12 +89,12 @@ export default function App() {
   };
 
   const handleScanWifi = async () => {
-    console.log("handleScanWifi: start");
+    console.log('handleScanWifi: start');
     try {
       const foundNetworks = await EspIdfProvisioning.scanWifiList();
-      console.log("handleScanWifi: Found Networks: " + foundNetworks);
+      console.log('handleScanWifi: Found Networks: ' + foundNetworks);
     } catch (error) {
-      console.log("handleScanWifi: " + error);
+      console.log('handleScanWifi: ' + error);
     }
   };
 
