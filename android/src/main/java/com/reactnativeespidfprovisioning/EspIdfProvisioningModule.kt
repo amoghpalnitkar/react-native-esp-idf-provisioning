@@ -39,7 +39,7 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
     // Resolves to an array of BLE devices
     @ReactMethod
     fun getBleDevices(prefix: String, promise: Promise) {
-      Log.e("Jooki", "getBleDevices")
+      Log.e("ESPProvisioning", "getBleDevices")
 
       if (ActivityCompat.checkSelfPermission(reactApplicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         promise.reject("Location Permission denied")
@@ -80,7 +80,7 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
     // Subscribe on a DeviceConnectionEvent to get more info about the device connection.
     @Subscribe
     fun onConnectionEvent(event: DeviceConnectionEvent) {
-      Log.e("Jooki", "DeviceConnectionEvent")
+      Log.e("ESPProvisioning", "DeviceConnectionEvent")
 
       when (event.getEventType()) {
         ESPConstants.EVENT_DEVICE_CONNECTED -> sendEvent("DeviceConnectionEvent", "EVENT_DEVICE_CONNECTED")
@@ -96,7 +96,7 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
     // Resolves when connected to device
     @ReactMethod
     fun connectBleDevice(deviceAddress: String, deviceProofOfPossession: String, promise: Promise) {
-      Log.e("Jooki", "connectBleDevice")
+      Log.e("ESPProvisioning", "connectBleDevice")
       if (ActivityCompat.checkSelfPermission(reactApplicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         promise.reject("Location Permission denied");
         return;
