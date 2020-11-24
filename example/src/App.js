@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, View, Button, Platform, DeviceEventEmitter } from 'react-native';
+import { StyleSheet, View, Button, Platform, NativeEventEmitter, NativeModules } from 'react-native';
 import EspIdfProvisioning from 'react-native-esp-idf-provisioning';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
+const EspIdfProvisioningModule = NativeModules.EspIdfProvisioning;
 const deviceProofOfPossession = 'abcd1234';
 
 export default function App() {
@@ -39,7 +40,8 @@ export default function App() {
   };
 
   const handleConnectBleDevice = async () => {
-    DeviceEventEmitter.addListener('DeviceConnectionEvent', function (event) {
+    const espIdfProvisioningEmitter = new NativeEventEmitter(EspIdfProvisioningModule);
+    espIdfProvisioningEmitter.addListener('DeviceConnectionEvent', function (event) {
       console.log('DeviceConnectionEvent');
       console.log(event);
     });
