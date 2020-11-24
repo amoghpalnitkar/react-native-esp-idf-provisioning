@@ -58,7 +58,9 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
 
         override fun scanCompleted() {
           val result = WritableNativeArray();
-          foundBLEDevices.keys.forEach { result.pushString(it) }
+          foundBLEDevices.keys.forEach {
+            result.pushString(foundBLEDevices[it]?.name)
+          }
 
           // Return found BLE devices
           promise.resolve(result);
