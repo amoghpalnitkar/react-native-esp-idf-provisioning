@@ -44,6 +44,8 @@ export default function App() {
     espIdfProvisioningEmitter.addListener('DeviceConnectionEvent', function (event) {
       console.log('DeviceConnectionEvent');
       console.log(event);
+
+      espIdfProvisioningEmitter.removeListener('DeviceConnectionEvent');
     });
 
     console.log('handleConnectBleDevice: start connection');
