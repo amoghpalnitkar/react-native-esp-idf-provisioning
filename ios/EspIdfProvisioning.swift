@@ -48,7 +48,10 @@ class EspIdfProvisioning: NSObject {
           }
 
           // TODO: We only return the name of the devices. Do we want to return more (MAC address, RSSI...)?
-          let deviceNames = bleDevices!.map { $0.name }
+          let deviceNames = bleDevices!.map {[
+            "name": $0.name,
+            "address": $0.name
+          ]}
           // Return found BLE device names
           resolve(deviceNames)
         }
