@@ -58,7 +58,7 @@ export default function App() {
 
     try {
       const connectedDevice = await EspIdfProvisioning.connectBleDevice(
-        foundBLEDevices[0],
+        foundBLEDevices[0].address,
         deviceProofOfPossession
       ); // For testing we use the first matching device.
       console.log(
