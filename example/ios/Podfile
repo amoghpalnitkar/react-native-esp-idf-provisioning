@@ -55,6 +55,13 @@ target 'EspIdfProvisioningExample' do
 
   pod 'react-native-esp-idf-provisioning', :path => '../..'
 
+  # react-native-permissions permission handlers
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-BluetoothPeripheral', :path => "#{permissions_path}/BluetoothPeripheral.podspec"
+  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
+
   use_native_modules!
 
   # Enables Flipper.
