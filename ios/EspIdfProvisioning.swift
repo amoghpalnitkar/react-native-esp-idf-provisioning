@@ -120,9 +120,9 @@ class EspIdfProvisioning: NSObject {
       EspDevice.shared.espDevice?.scanWifiList{ wifiList, _ in
 
         let networks = wifiList!.map {[
-            "ssid": $0.ssid,
+            "name": $0.ssid,
             "rssi": $0.rssi,
-            "auth": $0.auth.rawValue,
+            "security": $0.auth.rawValue,
         ]}
 
         resolve(networks)
