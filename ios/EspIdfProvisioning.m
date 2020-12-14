@@ -21,7 +21,6 @@ RCT_EXTERN_METHOD(provision:(NSString *)ssid
                 passPhrase:(NSString *)passPhrase
                 withResolver:(RCTPromiseResolveBlock)resolve
                 withRejecter:(RCTPromiseRejectBlock)reject)
-)
 
 + (BOOL) requiresMainQueueSetup {
   return YES;
