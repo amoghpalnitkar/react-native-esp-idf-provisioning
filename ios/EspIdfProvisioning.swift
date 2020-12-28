@@ -118,8 +118,14 @@ class EspIdfProvisioning: NSObject {
     @objc(scanWifiList:withRejecter:)
     func scanWifiList(resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
       EspDevice.shared.espDevice?.scanWifiList{ wifiList, _ in
-        dump(wifiList)
-        resolve(wifiList)
+
+        let networks = wifiList!.map {[
+            "name": $0.ssid,
+            "rssi": $0.rssi,
+            "security": $0.auth.rawValue,
+        ]}
+
+        resolve(networks)
       }
     }
 

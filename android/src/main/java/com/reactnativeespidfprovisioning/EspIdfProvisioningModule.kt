@@ -154,7 +154,12 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
         override fun onWifiListReceived(wifiList: java.util.ArrayList<WiFiAccessPoint>?) {
           val result = WritableNativeArray();
           wifiList?.forEach {
-            result.pushString(it.wifiName)
+            val network: WritableMap = Arguments.createMap();
+            network.putString("name", it.wifiName);
+            network.putInt("rssi", it.rssi);
+            network.putInt("security", it.security);
+
+            result.pushMap(network)
           }
           promise.resolve(result)
         }
