@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, View, Button, Platform, NativeEventEmitter, NativeModules } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Button,
+  Platform,
+  NativeEventEmitter,
+  NativeModules,
+} from 'react-native';
 import EspIdfProvisioning from 'react-native-esp-idf-provisioning';
 import { request, PERMISSIONS } from 'react-native-permissions';
 
@@ -40,8 +47,12 @@ export default function App() {
   };
 
   const handleConnectBleDevice = async () => {
-    const espIdfProvisioningEmitter = new NativeEventEmitter(EspIdfProvisioningModule);
-    espIdfProvisioningEmitter.addListener('DeviceConnectionEvent', function (event) {
+    const espIdfProvisioningEmitter = new NativeEventEmitter(
+      EspIdfProvisioningModule
+    );
+    espIdfProvisioningEmitter.addListener('DeviceConnectionEvent', function (
+      event
+    ) {
       console.log('DeviceConnectionEvent');
       console.log(event);
 
@@ -102,14 +113,16 @@ export default function App() {
     }
   };
 
-  const handleProvision = () => {
-    EspIdfProvisioning.provision(
-      'PROV_TEST_LAN_SSID',
-      'PROV_TEST_LAN_PASSWORD',
-      (error, value) => {
-        console.warn({ error, value });
-      }
-    );
+  const handleProvision = async () => {
+    try {
+      const value = EspIdfProvisioning.provision(
+        'PROV_TEST_LAN_SSID',
+        'PROV_TEST_LAN_PASSWORD'
+      );
+      console.log('handleProvision: ' + value);
+    } catch (error) {
+      console.log('handleProvision: ' + error);
+    }
   };
 
   return (
