@@ -129,15 +129,15 @@ class EspIdfProvisioning: NSObject {
       }
     }
 
-    @objc(provision:passPhrase:successCallback:)
-    func provision(ssid: String, passPhrase: String, successCallback: @escaping RCTResponseSenderBlock) -> Void {
+    @objc(provision:passPhrase:withResolver:withRejecter:)
+    func provision(ssid: String, passPhrase: String, resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
       var completedFlag = false
       EspDevice.shared.espDevice?.provision(ssid: ssid, passPhrase: passPhrase, completionHandler: {
         status in
         dump(status)
         if(!completedFlag) {
           completedFlag = true
-          successCallback([nil, status])
+          resolve(status)
         }
       })
     }

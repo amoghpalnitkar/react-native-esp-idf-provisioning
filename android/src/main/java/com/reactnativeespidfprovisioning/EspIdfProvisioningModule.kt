@@ -171,41 +171,46 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
     }
 
     @ReactMethod
-    fun provision(ssid: String, password: String, callback: Callback) {
+    fun provision(ssid: String, password: String, promise: Promise) {
       val device = ESPProvisionManager.getInstance(reactApplicationContext).espDevice
       if(device != null) {
         device.provision(ssid, password, object: ProvisionListener {
           override fun wifiConfigApplyFailed(p0: Exception?) {
-            TODO("Not yet implemented")
+            Log.e("ESPProvisioning", "provision-wifiConfigApplyFailed");
+            promise.reject(p0.toString())
           }
 
           override fun wifiConfigApplied() {
-            TODO("Not yet implemented")
+            Log.e("ESPProvisioning", "provision-wifiConfigApplied");
           }
 
           override fun onProvisioningFailed(p0: Exception?) {
-            Toast.makeText(reactApplicationContext, p0?.message, Toast.LENGTH_LONG).show();
-            callback.invoke("error")
+            Log.e("ESPProvisioning", "provision-onProvisioningFailed");
+            promise.reject(p0.toString())
           }
 
           override fun deviceProvisioningSuccess() {
-            callback.invoke("success")
+            Log.e("ESPProvisioning", "provision-deviceProvisioningSuccess");
+            promise.resolve(ssid)
           }
 
           override fun createSessionFailed(p0: Exception?) {
-            Toast.makeText(reactApplicationContext, p0?.message, Toast.LENGTH_LONG).show();
+            Log.e("ESPProvisioning", "provision-createSessionFailed");
+            promise.reject(p0.toString())
           }
 
           override fun wifiConfigFailed(p0: Exception?) {
-            Toast.makeText(reactApplicationContext, p0?.message, Toast.LENGTH_LONG).show();
+            Log.e("ESPProvisioning", "provision-wifiConfigFailed");
+            promise.reject(p0.toString())
           }
 
           override fun provisioningFailedFromDevice(p0: ESPConstants.ProvisionFailureReason?) {
-            Toast.makeText(reactApplicationContext, p0?.name, Toast.LENGTH_LONG).show();
+            Log.e("ESPProvisioning", "provision-provisioningFailedFromDevice");
+            promise.reject(p0.toString())
           }
 
           override fun wifiConfigSent() {
-            //todo implement
+            Log.e("ESPProvisioning", "provision-wifiConfigSent");
           }
         })
       }
